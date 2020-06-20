@@ -16,15 +16,22 @@ describe('SqlService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should return sqlt connection to test', () => {
-    process.env.NODE_ENV = 'test';
+  it('should return a connection to test', () => {
     const connection = SqlService.getConnection();
     expect(connection.type).toBe('sqlite');
   });
 
-  it('should return postgres connection', () => {
-    process.env.NODE_ENV = 'develop';
+  it('should return a connection to development', () => {
+    process.env.NODE_ENV = 'dev';
     const connection = SqlService.getConnection();
     expect(connection.type).toBe('postgres');
+  });
+
+  it('should return a connection to production', () => {
+    process.env.NODE_ENV = 'prod';
+
+    const connection = SqlService.getConnection();
+    expect(connection.type).toBe('postgres');
+    expect(connection.synchronize).toBe(false);
   });
 });

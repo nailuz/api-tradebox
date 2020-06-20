@@ -20,6 +20,18 @@ export class SqlService {
           logging: true,
         };
         break;
+      case 'prod':
+        return {
+          ...defaultConfig,
+          type: 'postgres',
+          host: process.env.SQL_HOST,
+          port: Number(process.env.SQL_PORT),
+          username: process.env.SQL_USER,
+          password: String(process.env.SQL_PASS),
+          database: process.env.SQL_NAME,
+          logging: true,
+        };
+        break;
       default:
         return {
           ...defaultConfig,
