@@ -19,6 +19,9 @@ export class User {
   @Column()
   password: string;
 
+  @Column('is_active')
+  isActive: boolean;
+
   @CreateDateColumn('created_at')
   createdAt: Date;
 

@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Connection, ConnectionOptions } from 'typeorm';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import 'dotenv';
 
 @Injectable()
 export class SqlService {
