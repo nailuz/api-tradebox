@@ -1,14 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { User } from 'src/app/components/users/models/User';
 
 @Injectable()
 export class SqlService {
   public static getConnection(): TypeOrmModuleOptions {
+    console.log(__dirname);
+
     const defaultConfig: TypeOrmModuleOptions = {
       synchronize: false,
-      entities: ['src/app/**/models/*.ts', 'src/**/*.entity.ts'],
+      entities: [User],
       migrations: ['src/database/migrations/*.ts'],
     };
+    console.log(process.env.NODE_ENV);
     switch (String(process.env.NODE_ENV)) {
       case 'test':
         return {
@@ -28,6 +32,7 @@ export class SqlService {
           password: String(process.env.SQL_PASS),
           database: process.env.SQL_NAME,
           logging: true,
+          synchronize: false,
         };
         break;
       default:
@@ -40,6 +45,7 @@ export class SqlService {
           password: String(process.env.SQL_PASS),
           database: process.env.SQL_NAME,
           logging: true,
+          synchronize: true,
         };
         break;
     }
